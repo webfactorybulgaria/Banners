@@ -1,0 +1,23 @@
+{
+    "name": "webfactorybulgaria/banners",
+    "description": "Subscription form for banners, connected with mailchimp",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Pavel Shtilianov",
+            "email": "pavel@webfactory.bg"
+        }
+    ],
+    "require": {
+        "spatie/laravel-banners": "^2.2",
+        "webfactorybulgaria/core": "~4.0.0",
+        "maatwebsite/excel": "^2.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "TypiCMS\\Modules\\Banners\\": "src/"
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
