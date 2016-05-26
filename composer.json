@@ -9,9 +9,8 @@
         }
     ],
     "require": {
-        "spatie/laravel-banners": "^2.2",
         "webfactorybulgaria/core": "~4.0.0",
-        "maatwebsite/excel": "^2.1"
+        "webfactorybulgaria/bannerplaces": "~4.0.0",
     },
     "autoload": {
         "psr-4": {
