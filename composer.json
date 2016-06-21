@@ -9,8 +9,8 @@
         }
     ],
     "require": {
-        "webfactorybulgaria/core": "~4.0.0",
-        "webfactorybulgaria/bannerplaces": "~4.0.0",
+        "webfactorybulgaria/core": "~4.1.0",
+        "webfactorybulgaria/bannerplaces": "~4.1.0",
     },
     "autoload": {
         "psr-4": {
