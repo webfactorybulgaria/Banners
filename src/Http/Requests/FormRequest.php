@@ -1,6 +1,6 @@
 <?php
 
-namespace TypiCMS\Modules\Bannerplaces\Http\Requests;
+namespace TypiCMS\Modules\Banners\Http\Requests;
 
 use TypiCMS\Modules\Core\Http\Requests\AbstractFormRequest;
 

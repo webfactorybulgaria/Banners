@@ -1,6 +1,6 @@
 <?php
 
-namespace TypiCMS\Modules\Bannerplaces\Facades;
+namespace TypiCMS\Modules\Banners\Facades;
 
 use Illuminate\Support\Facades\Facade as MainFacade;
 
@@ -13,6 +13,6 @@ class Facade extends MainFacade
      */
     protected static function getFacadeAccessor()
     {
-        return 'TypiCMS\Modules\Bannerplaces\Repositories\BannerplaceInterface';
+        return 'TypiCMS\Modules\Banners\Repositories\BannerInterface';
     }
 }

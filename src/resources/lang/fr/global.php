@@ -1,9 +1,9 @@
 <?php
 
 return [
-    'name'     => 'Bannerplaces',
-    'bannerplaces'  => 'bannerplace|bannerplaces',
-    'New'      => 'Nouveau bannerplace',
-    'Edit'     => 'Modifier bannerplace',
-    'Back'     => 'Retour à la liste des bannerplaces',
+    'name'     => 'Banners',
+    'banners'  => 'banner|banners',
+    'New'      => 'Nouveau banner',
+    'Edit'     => 'Modifier banner',
+    'Back'     => 'Retour à la liste des banners',
 ];

@@ -3,7 +3,7 @@
 return [
     'per_page' => 30,
     'order' => [
-        'id' => 'desc',
+        'position' => 'asc',
     ],
     'sidebar' => [
         'icon' => 'icon fa fa-fw fa-cube',

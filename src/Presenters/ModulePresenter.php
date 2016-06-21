@@ -1,6 +1,6 @@
 <?php
 
-namespace TypiCMS\Modules\Bannerplaces\Presenters;
+namespace TypiCMS\Modules\Banners\Presenters;
 
 use TypiCMS\Modules\Core\Presenters\Presenter;
 

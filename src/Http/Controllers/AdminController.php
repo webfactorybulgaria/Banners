@@ -1,17 +1,34 @@
 <?php
 
-namespace TypiCMS\Modules\Bannerplaces\Http\Controllers;
+namespace TypiCMS\Modules\Banners\Http\Controllers;
 
 use TypiCMS\Modules\Core\Http\Controllers\BaseAdminController;
-use TypiCMS\Modules\Bannerplaces\Http\Requests\FormRequest;
-use TypiCMS\Modules\Bannerplaces\Models\Bannerplace;
-use TypiCMS\Modules\Bannerplaces\Repositories\BannerplaceInterface;
+use TypiCMS\Modules\Banners\Http\Requests\FormRequest;
+use TypiCMS\Modules\Banners\Models\Banner;
+use TypiCMS\Modules\Banners\Repositories\BannerInterface;
+use JavaScript;
 
 class AdminController extends BaseAdminController
 {
-    public function __construct(BannerplaceInterface $bannerplace)
+    public function __construct(BannerInterface $banner)
     {
-        parent::__construct($bannerplace);
+        parent::__construct($banner);
+    }
+
+    /**
+     * List models.
+     *
+     * @return \Illuminate\View\View
+     */
+    public function index()
+    {
+        $module = $this->repository->getTable();
+        $title = trans($module.'::global.name');
+        $models = $this->repository->all(['bannerplace'], true);
+        JavaScript::put('models', $models);
+
+        return view('core::admin.index')
+            ->with(compact('title', 'module', 'models'));
     }
 
     /**
@@ -30,43 +47,42 @@ class AdminController extends BaseAdminController
     /**
      * Edit form for the specified resource.
      *
-     * @param \TypiCMS\Modules\Bannerplaces\Models\Bannerplace $bannerplace
+     * @param \TypiCMS\Modules\Banners\Models\Banner $banner
      *
      * @return \Illuminate\View\View
      */
-    public function edit(Bannerplace $bannerplace)
+    public function edit(Banner $banner)
     {
         return view('core::admin.edit')
-            ->with(['model' => $bannerplace]);
+            ->with(['model' => $banner]);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param \TypiCMS\Modules\Bannerplaces\Http\Requests\FormRequest $request
+     * @param \TypiCMS\Modules\Banners\Http\Requests\FormRequest $request
      *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function store(FormRequest $request)
     {
-        // dd($request->all());
-        $bannerplace = $this->repository->create($request->all());
+        $banner = $this->repository->create($request->all(), ['pages']);
 
-        return $this->redirect($request, $bannerplace);
+        return $this->redirect($request, $banner);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param \TypiCMS\Modules\Bannerplaces\Models\Bannerplace            $bannerplace
-     * @param \TypiCMS\Modules\Bannerplaces\Http\Requests\FormRequest $request
+     * @param \TypiCMS\Modules\Banners\Models\Banner            $banner
+     * @param \TypiCMS\Modules\Banners\Http\Requests\FormRequest $request
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Bannerplace $bannerplace, FormRequest $request)
+    public function update(Banner $banner, FormRequest $request)
     {
-        $this->repository->update($request->all());
+        $this->repository->update($request->all(), ['pages']);
 
-        return $this->redirect($request, $bannerplace);
+        return $this->redirect($request, $banner);
     }
 }

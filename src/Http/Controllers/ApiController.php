@@ -1,11 +1,11 @@
 <?php
 
-namespace TypiCMS\Modules\Bannerplaces\Http\Controllers;
+namespace TypiCMS\Modules\Banners\Http\Controllers;
 
 use Illuminate\Support\Facades\Request;
 use TypiCMS\Modules\Core\Http\Controllers\BaseApiController;
-use TypiCMS\Modules\Bannerplaces\Models\Bannerplace;
-use TypiCMS\Modules\Bannerplaces\Repositories\BannerplaceInterface as Repository;
+use TypiCMS\Modules\Banners\Models\Banner;
+use TypiCMS\Modules\Banners\Repositories\BannerInterface as Repository;
 
 class ApiController extends BaseApiController
 {
@@ -56,13 +56,13 @@ class ApiController extends BaseApiController
     /**
      * Remove the specified resource from storage.
      *
-     * @param \TypiCMS\Modules\Bannerplaces\Models\Bannerplace $bannerplace
+     * @param \TypiCMS\Modules\Banners\Models\Banner $banner
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function destroy(Bannerplace $bannerplace)
+    public function destroy(Banner $banner)
     {
-        $deleted = $this->repository->delete($bannerplace);
+        $deleted = $this->repository->delete($banner);
 
         return response()->json([
             'error' => !$deleted,

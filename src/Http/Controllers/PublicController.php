@@ -1,15 +1,15 @@
 <?php
 
-namespace TypiCMS\Modules\Bannerplaces\Http\Controllers;
+namespace TypiCMS\Modules\Banners\Http\Controllers;
 
 use TypiCMS\Modules\Core\Http\Controllers\BasePublicController;
-use TypiCMS\Modules\Bannerplaces\Repositories\BannerplaceInterface;
+use TypiCMS\Modules\Banners\Repositories\BannerInterface;
 
 class PublicController extends BasePublicController
 {
-    public function __construct(BannerplaceInterface $bannerplace)
+    public function __construct(BannerInterface $banner)
     {
-        parent::__construct($bannerplace);
+        parent::__construct($banner);
     }
 
     /**
@@ -21,7 +21,7 @@ class PublicController extends BasePublicController
     {
         $models = $this->repository->all();
 
-        return view('bannerplaces::public.index')
+        return view('banners::public.index')
             ->with(compact('models'));
     }
 
@@ -34,7 +34,7 @@ class PublicController extends BasePublicController
     {
         $model = $this->repository->bySlug($slug);
 
-        return view('bannerplaces::public.show')
+        return view('banners::public.show')
             ->with(compact('model'));
     }
 }

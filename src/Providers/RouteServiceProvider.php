@@ -1,6 +1,6 @@
 <?php
 
-namespace TypiCMS\Modules\Bannerplaces\Providers;
+namespace TypiCMS\Modules\Banners\Providers;
 
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Routing\Router;
@@ -15,7 +15,7 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @var string
      */
-    protected $namespace = 'TypiCMS\Modules\Bannerplaces\Http\Controllers';
+    protected $namespace = 'TypiCMS\Modules\Banners\Http\Controllers';
 
     /**
      * Define the routes for the application.
@@ -31,12 +31,12 @@ class RouteServiceProvider extends ServiceProvider
             /*
              * Front office routes
              */
-            if ($page = TypiCMS::getPageLinkedToModule('bannerplaces')) {
+            if ($page = TypiCMS::getPageLinkedToModule('banners')) {
                 $options = $page->private ? ['middleware' => 'auth'] : [];
                 foreach (config('translatable.locales') as $lang) {
                     if ($page->translate($lang)->status && $uri = $page->uri($lang)) {
-                        $router->get($uri, $options + ['as' => $lang.'.bannerplaces', 'uses' => 'PublicController@index']);
-                        $router->get($uri.'/{slug}', $options + ['as' => $lang.'.bannerplaces.slug', 'uses' => 'PublicController@show']);
+                        $router->get($uri, $options + ['as' => $lang.'.banners', 'uses' => 'PublicController@index']);
+                        $router->get($uri.'/{slug}', $options + ['as' => $lang.'.banners.slug', 'uses' => 'PublicController@show']);
                     }
                 }
             }
@@ -44,18 +44,19 @@ class RouteServiceProvider extends ServiceProvider
             /*
              * Admin routes
              */
-            $router->get('admin/bannerplaces', ['as' => 'admin.bannerplaces.index', 'uses' => 'AdminController@index']);
-            $router->get('admin/bannerplaces/create', ['as' => 'admin.bannerplaces.create', 'uses' => 'AdminController@create']);
-            $router->get('admin/bannerplaces/{bannerplace}/edit', ['as' => 'admin.bannerplaces.edit', 'uses' => 'AdminController@edit']);
-            $router->post('admin/bannerplaces', ['as' => 'admin.bannerplaces.store', 'uses' => 'AdminController@store']);
-            $router->put('admin/bannerplaces/{bannerplace}', ['as' => 'admin.bannerplaces.update', 'uses' => 'AdminController@update']);
+            $router->get('admin/banners', ['as' => 'admin.banners.index', 'uses' => 'AdminController@index']);
+            $router->get('admin/banners/create', ['as' => 'admin.banners.create', 'uses' => 'AdminController@create']);
+            $router->get('admin/banners/{banner}/edit', ['as' => 'admin.banners.edit', 'uses' => 'AdminController@edit']);
+            $router->post('admin/banners', ['as' => 'admin.banners.store', 'uses' => 'AdminController@store']);
+            $router->put('admin/banners/{banner}', ['as' => 'admin.banners.update', 'uses' => 'AdminController@update']);
+            $router->post('admin/banners/sort', ['as' => 'admin.banners.sort', 'uses' => 'AdminController@sort']);
 
             /*
              * API routes
              */
-            $router->get('api/bannerplaces', ['as' => 'api.bannerplaces.index', 'uses' => 'ApiController@index']);
-            $router->put('api/bannerplaces/{bannerplace}', ['as' => 'api.bannerplaces.update', 'uses' => 'ApiController@update']);
-            $router->delete('api/bannerplaces/{bannerplace}', ['as' => 'api.bannerplaces.destroy', 'uses' => 'ApiController@destroy']);
+            $router->get('api/banners', ['as' => 'api.banners.index', 'uses' => 'ApiController@index']);
+            $router->put('api/banners/{banner}', ['as' => 'api.banners.update', 'uses' => 'ApiController@update']);
+            $router->delete('api/banners/{banner}', ['as' => 'api.banners.destroy', 'uses' => 'ApiController@destroy']);
         });
     }
 }

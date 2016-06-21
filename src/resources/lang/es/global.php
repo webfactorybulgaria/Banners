@@ -2,7 +2,7 @@
 
 return [
     'name'     => 'Objetos',
-    'bannerplaces'  => 'objeto|objetos',
+    'banners'  => 'objeto|objetos',
     'New'      => 'Nuevo objeto',
     'Edit'     => 'Editar objeto',
     'Back'     => 'Volver a los objetos',
