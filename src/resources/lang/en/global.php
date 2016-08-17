@@ -6,8 +6,9 @@ return [
     'New'      => 'New banner',
     'Edit'     => 'Edit banner',
     'Back'     => 'Back to banners',
-    'Assign'   => 'Assign to pages',
-    'Select'   => 'Select pages',
-    'show_on_checked'   => 'Display ONLY on the checked pages',
-    'show_on_unchecked'   => 'Display on all pages EXCEPT on the ones checked below',
+    'Bannerplace' => 'Bannerplace',
+    'Link'     => 'Link',
+    'Select Pages' => 'Select on which pages this banner should be shown',
+    'All pages except' => 'Show on all pages EXCEPT on the ones checked below',
+    'Only on pages' => 'Show ONLY on the checked pages',
 ];

@@ -2,12 +2,12 @@
 
 namespace TypiCMS\Modules\Banners\Models;
 
-use Dimsav\Translatable\Translatable;
+use TypiCMS\Modules\Core\Shells\Traits\Translatable;
 use Laracasts\Presenter\PresentableTrait;
-use TypiCMS\Modules\Core\Models\Base;
-use TypiCMS\Modules\History\Traits\Historable;
-use TypiCMS\Modules\Bannerplaces\Models\Bannerplace;
-use TypiCMS\Modules\Pages\Models\Page;
+use TypiCMS\Modules\Core\Shells\Models\Base;
+use TypiCMS\Modules\History\Shells\Traits\Historable;
+use TypiCMS\Modules\Bannerplaces\Shells\Models\Bannerplace;
+use TypiCMS\Modules\Pages\Shells\Models\Page;
 
 class Banner extends Base
 {
@@ -15,7 +15,7 @@ class Banner extends Base
     use PresentableTrait;
     use Translatable;
 
-    protected $presenter = 'TypiCMS\Modules\Banners\Presenters\ModulePresenter';
+    protected $presenter = 'TypiCMS\Modules\Banners\Shells\Presenters\ModulePresenter';
 
     /**
      * Declare any properties that should be hidden from JSON Serialization.
@@ -28,7 +28,7 @@ class Banner extends Base
         'image',
         'bannerplace_id',
         'position',
-        'show_on_pages',
+        'all_pages',
         // Translatable columns
         'title',
         'link',
@@ -36,7 +36,7 @@ class Banner extends Base
         'summary',
         'body',
         // banner_page table connection
-        'page_id',
+        //'page_id',
     ];
 
     /**
@@ -52,22 +52,24 @@ class Banner extends Base
         'body',
     ];
 
-    protected $appends = ['status', 'title', 'thumb'];
+    protected $appends = ['thumb'];
 
     /**
-     * Columns that are file.
+     * Append thumb attribute.
      *
-     * @var array
+     * @return string
      */
-    public $attachments = [
-    ];
+    public function getThumbAttribute()
+    {
+        return $this->present()->thumbSrc(200);
+    }
 
     /**
      * The banners belong to a bannerplace
      */
     public function bannerplace()
     {
-        return $this->belongsTo(Bannerplace::class)->with('translations');
+        return $this->belongsTo(Bannerplace::class);
     }
 
     /**

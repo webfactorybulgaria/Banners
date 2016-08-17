@@ -3,10 +3,10 @@
 return [
     'per_page' => 30,
     'order' => [
-        'position' => 'asc',
+        'id' => 'desc',
     ],
     'sidebar' => [
         'icon' => 'icon fa fa-fw fa-cube',
-        'weight' => 8,
+        'weight' => 10,
     ],
 ];

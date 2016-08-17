@@ -2,11 +2,11 @@
 
 namespace TypiCMS\Modules\Banners\Http\Controllers;
 
-use TypiCMS\Modules\Core\Http\Controllers\BaseAdminController;
-use TypiCMS\Modules\Banners\Http\Requests\FormRequest;
-use TypiCMS\Modules\Banners\Models\Banner;
-use TypiCMS\Modules\Banners\Repositories\BannerInterface;
-use JavaScript;
+use TypiCMS\Modules\Core\Shells\Http\Controllers\BaseAdminController;
+use TypiCMS\Modules\Banners\Shells\Http\Requests\FormRequest;
+use TypiCMS\Modules\Banners\Shells\Models\Banner;
+use TypiCMS\Modules\Banners\Shells\Repositories\BannerInterface;
+use TypiCMS\Modules\Bannerplaces\Shells\Models\Bannerplace;
 
 class AdminController extends BaseAdminController
 {
@@ -22,13 +22,10 @@ class AdminController extends BaseAdminController
      */
     public function index()
     {
-        $module = $this->repository->getTable();
-        $title = trans($module.'::global.name');
-        $models = $this->repository->all(['bannerplace'], true);
-        JavaScript::put('models', $models);
+        $bannerplaces = Bannerplace::all();
+        app('JavaScript')->put('options.bannerplaces', $bannerplaces);
 
-        return view('core::admin.index')
-            ->with(compact('title', 'module', 'models'));
+        return view('banners::admin.index');
     }
 
     /**
@@ -40,27 +37,27 @@ class AdminController extends BaseAdminController
     {
         $model = $this->repository->getModel();
 
-        return view('core::admin.create')
+        return view('banners::admin.create')
             ->with(compact('model'));
     }
 
     /**
      * Edit form for the specified resource.
      *
-     * @param \TypiCMS\Modules\Banners\Models\Banner $banner
+     * @param \TypiCMS\Modules\Banners\Shells\Models\Banner $banner
      *
      * @return \Illuminate\View\View
      */
     public function edit(Banner $banner)
     {
-        return view('core::admin.edit')
+        return view('banners::admin.edit')
             ->with(['model' => $banner]);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param \TypiCMS\Modules\Banners\Http\Requests\FormRequest $request
+     * @param \TypiCMS\Modules\Banners\Shells\Http\Requests\FormRequest $request
      *
      * @return \Illuminate\Http\RedirectResponse
      */
@@ -74,8 +71,8 @@ class AdminController extends BaseAdminController
     /**
      * Update the specified resource in storage.
      *
-     * @param \TypiCMS\Modules\Banners\Models\Banner            $banner
-     * @param \TypiCMS\Modules\Banners\Http\Requests\FormRequest $request
+     * @param \TypiCMS\Modules\Banners\Shells\Models\Banner            $banner
+     * @param \TypiCMS\Modules\Banners\Shells\Http\Requests\FormRequest $request
      *
      * @return \Illuminate\Http\RedirectResponse
      */

@@ -3,9 +3,9 @@
 namespace TypiCMS\Modules\Banners\Http\Controllers;
 
 use Illuminate\Support\Facades\Request;
-use TypiCMS\Modules\Core\Http\Controllers\BaseApiController;
-use TypiCMS\Modules\Banners\Models\Banner;
-use TypiCMS\Modules\Banners\Repositories\BannerInterface as Repository;
+use TypiCMS\Modules\Core\Shells\Http\Controllers\BaseApiController;
+use TypiCMS\Modules\Banners\Shells\Models\Banner;
+use TypiCMS\Modules\Banners\Shells\Repositories\BannerInterface as Repository;
 
 class ApiController extends BaseApiController
 {
@@ -19,6 +19,18 @@ class ApiController extends BaseApiController
     public function __construct(Repository $repository)
     {
         parent::__construct($repository);
+    }
+
+    /**
+     * List resources.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function index($builder = null)
+    {
+        $builder = $this->repository->getModel()->with('bannerplace');
+
+        return parent::index($builder);
     }
 
     /**
@@ -56,7 +68,7 @@ class ApiController extends BaseApiController
     /**
      * Remove the specified resource from storage.
      *
-     * @param \TypiCMS\Modules\Banners\Models\Banner $banner
+     * @param \TypiCMS\Modules\Banners\Shells\Models\Banner $banner
      *
      * @return \Illuminate\Http\JsonResponse
      */

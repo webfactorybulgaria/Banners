@@ -9,12 +9,12 @@
         }
     ],
     "require": {
-        "webfactorybulgaria/core": "~4.1.0",
-        "webfactorybulgaria/bannerplaces": "~4.1.0"
+        "webfactorybulgaria/core": "~4.1.0"
     },
     "autoload": {
         "psr-4": {
-            "TypiCMS\\Modules\\Banners\\": "src/"
+            "TypiCMS\\Modules\\Banners\\": "src/",
+            "TypiCMS\\Modules\\Bannerplaces\\": "submodules/bannerplaces/"
         }
     },
     "minimum-stability": "dev",

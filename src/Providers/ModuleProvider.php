@@ -5,14 +5,14 @@ namespace TypiCMS\Modules\Banners\Providers;
 use Illuminate\Foundation\AliasLoader;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\ServiceProvider;
-use TypiCMS\Modules\Core\Facades\TypiCMS;
-use TypiCMS\Modules\Core\Observers\FileObserver;
-use TypiCMS\Modules\Core\Observers\SlugObserver;
-use TypiCMS\Modules\Core\Services\Cache\LaravelCache;
-use TypiCMS\Modules\Banners\Models\Banner;
-use TypiCMS\Modules\Banners\Models\BannerTranslation;
-use TypiCMS\Modules\Banners\Repositories\CacheDecorator;
-use TypiCMS\Modules\Banners\Repositories\EloquentBanner;
+use TypiCMS\Modules\Core\Shells\Facades\TypiCMS;
+use TypiCMS\Modules\Core\Shells\Observers\FileObserver;
+use TypiCMS\Modules\Core\Shells\Observers\SlugObserver;
+use TypiCMS\Modules\Core\Shells\Services\Cache\LaravelCache;
+use TypiCMS\Modules\Banners\Shells\Models\Banner;
+use TypiCMS\Modules\Banners\Shells\Models\BannerTranslation;
+use TypiCMS\Modules\Banners\Shells\Repositories\CacheDecorator;
+use TypiCMS\Modules\Banners\Shells\Repositories\EloquentBanner;
 
 class ModuleProvider extends ServiceProvider
 {
@@ -23,7 +23,8 @@ class ModuleProvider extends ServiceProvider
         );
 
         $modules = $this->app['config']['typicms']['modules'];
-        $this->app['config']->set('typicms.modules', array_merge(['banners' => ['linkable_to_page']], $modules));
+
+        $this->app['config']->set('typicms.modules', array_merge(['banners' => []], $modules));
 
         $this->loadViewsFrom(__DIR__.'/../resources/views/', 'banners');
         $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'banners');
@@ -37,7 +38,7 @@ class ModuleProvider extends ServiceProvider
 
         AliasLoader::getInstance()->alias(
             'Banners',
-            'TypiCMS\Modules\Banners\Facades\Facade'
+            'TypiCMS\Modules\Banners\Shells\Facades\Facade'
         );
 
         // Observers
@@ -51,12 +52,12 @@ class ModuleProvider extends ServiceProvider
         /*
          * Register route service provider
          */
-        $app->register('TypiCMS\Modules\Banners\Providers\RouteServiceProvider');
+        $app->register('TypiCMS\Modules\Banners\Shells\Providers\RouteServiceProvider');
 
         /*
          * Sidebar view composer
          */
-        $app->view->composer('core::admin._sidebar', 'TypiCMS\Modules\Banners\Composers\SidebarViewComposer');
+        $app->view->composer('core::admin._sidebar', 'TypiCMS\Modules\Banners\Shells\Composers\SidebarViewComposer');
 
         /*
          * Add the page in the view.
@@ -65,7 +66,7 @@ class ModuleProvider extends ServiceProvider
             $view->page = TypiCMS::getPageLinkedToModule('banners');
         });
 
-        $app->bind('TypiCMS\Modules\Banners\Repositories\BannerInterface', function (Application $app) {
+        $app->bind('TypiCMS\Modules\Banners\Shells\Repositories\BannerInterface', function (Application $app) {
             $repository = new EloquentBanner(new Banner());
             if (!config('typicms.cache')) {
                 return $repository;
@@ -74,5 +75,17 @@ class ModuleProvider extends ServiceProvider
 
             return new CacheDecorator($repository, $laravelCache);
         });
+
+        $this->registerSubModules();
+    }
+    /**
+     * Register core modules.
+     *
+     * @return void
+     */
+    protected function registerSubModules()
+    {
+        $app = $this->app;
+        $app->register(\TypiCMS\Modules\Bannerplaces\Shells\Providers\ModuleProvider::class);
     }
 }
