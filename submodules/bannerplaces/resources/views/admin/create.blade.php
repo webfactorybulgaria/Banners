@@ -10,7 +10,7 @@
     </h1>
 
     {!! BootForm::open()->action(route('admin::index-bannerplaces'))->multipart()->role('form') !!}
-        @include('banners::admin._bannerplace-form')
+        @include('bannerplaces::admin._form')
     {!! BootForm::close() !!}
 
 @endsection

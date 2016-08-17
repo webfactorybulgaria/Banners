@@ -11,7 +11,7 @@
 
     {!! BootForm::open()->put()->action(route('admin::update-bannerplace', $model->id))->multipart()->role('form') !!}
     {!! BootForm::bind($model) !!}
-        @include('banners::admin._bannerplace-form')
+        @include('bannerplaces::admin._form')
     {!! BootForm::close() !!}
 
 @endsection
