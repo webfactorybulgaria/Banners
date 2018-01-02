@@ -19,7 +19,7 @@ class CacheDecorator extends CacheAbstractDecorator implements BannerInterface
         $currentPage = Navigator::currentPage();
         if (!$currentPage) return [];
 
-        $cacheKey = md5(config('app.locale').'Banners-getByBannerPlace-'.$bannerPlaceSlug.'-'.Navigator::currentPage()->id);
+        $cacheKey = md5($this->cachePrefix().config('app.locale').'Banners-getByBannerPlace-'.$bannerPlaceSlug.'-'.Navigator::currentPage()->id);
 
         if ($this->cache->has($cacheKey)) {
             return $this->cache->get($cacheKey);
@@ -39,7 +39,7 @@ class CacheDecorator extends CacheAbstractDecorator implements BannerInterface
         $currentPage = Navigator::currentPage();
         if (!$currentPage) return '';
 
-        $cacheKey = md5(config('app.locale').'Banners-render-'.$bannerPlaceSlug.'-'.$currentPage->id);
+        $cacheKey = md5($this->cachePrefix().config('app.locale').'Banners-render-'.$bannerPlaceSlug.'-'.$currentPage->id);
 
         if ($this->cache->has($cacheKey)) {
             return $this->cache->get($cacheKey);
